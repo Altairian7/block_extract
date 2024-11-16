@@ -31,3 +31,6 @@ print(contract)
 
 totalSupply = contract.functions.totalSupply().call()
 print(totalSupply)
+print(contract.functions.name().call())
+print(contract.functions.symbol().call())
+print(contract.functions.symbol().call())
