@@ -31,6 +31,11 @@ print(contract)
 
 totalSupply = contract.functions.totalSupply().call()
 print(totalSupply)
+
 print(contract.functions.name().call())
 print(contract.functions.symbol().call())
 print(contract.functions.symbol().call())
+
+balance = contract.functions.balanceOf('0xF977814e90dA44bFA03b6295A0616a897441aceC').call()
+print(web3.from_wei(balance, 'ether'))
+
