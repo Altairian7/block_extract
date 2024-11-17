@@ -32,8 +32,9 @@ tx = {
 
 }
 
+signed_tx = Web3.eth.account.sign_transaction(tx, private_key_acc_1)    # sign a transaction
 
+tx_hash = Web3.eth.send_raw_transaction(signed_tx.raw_transaction)    # send a transaction
 
-# sign a transaction
-# send a transaction
-# get a transaction hash
+print(tx_hash)  # get a transaction hash
+  
