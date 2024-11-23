@@ -42,6 +42,16 @@ class Blockchain:
         genesis_block = self._create_block(data="It all started with me", proof=1, previous_hash="0", index=0)
         self.chain.append(genesis_block)
         
+    def mine_block(self, data: str) -> dict:
+        previous_block = self.get_previous_block()
+        previous_proof = previous_proof["proof"]
+        index = len(self.chain) + 1
+        proof = None
+        pass
+    
+    def get_previous_block(self) -> dict:
+        return self.chain[-1]
+    
     def _create_block(self, data: str, proof: int, previous_hash: str, index: int) -> dict:
         block = {
             "index": index,
