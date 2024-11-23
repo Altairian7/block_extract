@@ -46,7 +46,7 @@ class Blockchain:
         previous_block = self.get_previous_block()
         previous_proof = previous_proof["proof"]
         index = len(self.chain) + 1
-        proof = None
+        proof = self._proof_of_work(previous_proof, index, data)
         pass
     
     def _to_digest(self, new_proof: int, previous_proof: int, index: str, data: str) -> bytes:
@@ -59,6 +59,7 @@ class Blockchain:
         check_proof = False
         
         while not check_proof:
+            print(new_proof)
             to_digest = self._to_digest(new_proof=new_proof, previous_proof=previous_proof, index=index, data=data,)
             hash_value = _hashlib.sha256(to_digest).hexdigest()
             
