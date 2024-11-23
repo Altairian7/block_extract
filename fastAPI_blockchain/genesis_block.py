@@ -49,6 +49,26 @@ class Blockchain:
         proof = None
         pass
     
+    def _to_digest(self, new_proof: int, previous_proof: int, index: str, data: str) -> bytes:
+        to_digest = str(new_proof ** 2 - previous_proof ** 2 + index) + data
+        
+        return to_digest.encode()
+    
+    def _proof_of_work(self, previous_proof: str, index: int, data: str) -> int:
+        new_proof = 1
+        check_proof = False
+        
+        while not check_proof:
+            to_digest = self._to_digest(new_proof=new_proof, previous_proof=previous_proof, index=index, data=data,)
+            hash_value = _hashlib.sha256(to_digest).hexdigest()
+            
+            if hash_value[:4] == "0000":
+                check_proof = True
+            else:
+                new_proof += 1       
+        
+        return new_proof
+    
     def get_previous_block(self) -> dict:
         return self.chain[-1]
     
