@@ -31,7 +31,7 @@ Genesis block
 """
 
 
-import datatime as _dt
+import datetime as _dt
 import hashlib as _hashlib
 import json as _json
 
@@ -44,12 +44,16 @@ class Blockchain:
         
     def mine_block(self, data: str) -> dict:
         previous_block = self.get_previous_block()
-        previous_proof = previous_proof["proof"]
+        previous_proof = previous_block["proof"]
         index = len(self.chain) + 1
         proof = self._proof_of_work(previous_proof, index, data)
-        pass
+        
+        previous_hash = self.__hash__(previous_block)
+        block = self._create_block(data=data, proof=proof, previous_hash=previous_hash)
+        self.chain.append(block)
+        return block
     
-    def _to_digest(self, new_proof: int, previous_proof: int, index: str, data: str) -> bytes:
+    def _to_digest(self, new_proof: int, previous_proof: int, index: int, data: str) -> bytes:
         to_digest = str(new_proof ** 2 - previous_proof ** 2 + index) + data
         
         return to_digest.encode()
@@ -82,3 +86,6 @@ class Blockchain:
             "previous_hash": previous_hash,
         }
     
+    def _hash_block(self, block: dict) -> str:
+        encoded_block = _json.dumps(block, sort_keys=True).encode()
+        return _hashlib.sha256(encoded_block).hexdigest()
