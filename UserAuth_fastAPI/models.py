@@ -1,4 +1,4 @@
-import datatime as _dt
+import datetime as _dt
 
 import sqlalchemy as _sql
 import sqlalchemy.orm as _orm
@@ -13,6 +13,7 @@ class User(_database.Base):
     hashed_password = _sql.Column(_sql.String)
     data_created = _sql.column(_sql.DateTime, default=_dt.datetime.utcow)
     
+    Posts = _orm.relationship("Post", back_populates="owner")
     
 class Post(_database.Base):
     __tablename__ = "posts"
