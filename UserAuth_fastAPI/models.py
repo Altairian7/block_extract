@@ -15,6 +15,9 @@ class User(_database.Base):
     
     Posts = _orm.relationship("Post", back_populates="owner")
     
+    def verify_password(self, password: str):
+        return _hash.bcrypt.verify(password, self.hashed_password)
+    
 class Post(_database.Base):
     __tablename__ = "posts"
     id = _sql.Column(_sql.Integer, primary_key=True, index=True)
