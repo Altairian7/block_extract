@@ -18,3 +18,6 @@ async def create_user(
             status_code=400, detail="Already exists"
         )
         
+        
+    # create user
+    user = await _services.create_user(user=user, db=db)
