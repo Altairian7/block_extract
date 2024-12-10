@@ -1,3 +1,5 @@
+import sqlalchemy.orm as _orm
+
 import database as _database
 import models as _models 
 
@@ -11,3 +13,7 @@ def get_db():
         yield db
     finally: 
         db.close()
+        
+    
+async def get_user_by_email(email: str, db: _orm.Session):
+    return db.query(_models.User).filter(_models.User.email == email).first()
