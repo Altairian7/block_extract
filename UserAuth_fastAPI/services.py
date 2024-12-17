@@ -9,6 +9,8 @@ import models as _models
 import schemas as _schemas
 
 
+_JWT_SECRET = 'thisisnotverysafe'
+
 def _create_database():
     return _database.Base.metadata.create_all(bind=_database.engine)
 
