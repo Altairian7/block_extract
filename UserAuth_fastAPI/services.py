@@ -53,4 +53,6 @@ async def create_token(user: _models.User):
     user_dict = user_schema_obj.dict()
     del user_dict("date_created")
     
-    token = _jwt.encode(user_dict, )
+    token = _jwt.encode(user_dict, _JWT_SECRET)
+    
+    return dict(access_token=token, token_type="bearer")

@@ -21,3 +21,6 @@ async def create_user(
         
     # create user
     user = await _services.create_user(user=user, db=db)
+    
+    # return the token 
+    return await _services.create_token(user=user)
