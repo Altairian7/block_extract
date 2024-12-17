@@ -2,6 +2,7 @@ import fastapi as _fastapi
 import sqlalchemy.orm as _orm
 import email_validator as _email_check
 import passlib.hash as _hash
+import jwt as _jwt
 
 import database as _database
 import models as _models 
@@ -43,3 +44,11 @@ async def create_user(user: _schemas.UserCreate, db: _orm.Session):
     db.refresh(user_obj)
     return user_obj
     
+    
+async def create_token(user: _models.User):
+    user_schema_obj = _schemas.User.from_orm(user)
+    
+    user_dict = user_schema_obj.dict()
+    del user_dict("date_created")
+    
+    token = _jwt.encode(user_dict, )
