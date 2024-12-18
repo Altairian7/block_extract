@@ -63,3 +63,8 @@ async def authenticate_user(email: str, password: str, db: _orm.Session):
     
     if not user:
         return False
+    
+    if not user.verify_password(password=password):
+        return False
+    
+    return user
