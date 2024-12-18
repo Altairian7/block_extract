@@ -24,3 +24,11 @@ async def create_user(
     
     # return the token 
     return await _services.create_token(user=user)
+
+
+@app.post("/api/token")
+async def generate_token(
+    form_data: _security.OAuth2PasswordRequestForm = _fastapi.Depends(),
+    db: _orm.Session = _fastapi.Depends(_services.get_db),
+):
+    pass
