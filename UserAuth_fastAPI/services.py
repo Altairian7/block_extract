@@ -72,4 +72,17 @@ async def authenticate_user(email: str, password: str, db: _orm.Session):
     
     return user
 
-async def get_current_user(db: _orm.Session=_fastapi.Depends(get_db), token: str=_fastapi.Depends())
+async def get_current_user(
+    db: _orm.Session=_fastapi.Depends(get_db), 
+    token: str=_fastapi.Depends(oauth2schema)
+):
+    try:
+        payload = _jwt.decode(token, _JWT_SECRET, algorithms=["HS256"])
+        user = db.query(_models.User).get(payload["id"])
+    except:
+        raise _fastapi.HTTPException(
+            status_code=401, detail="Invalid email or passwd"
+        )
+        
+    
+    return _schemas.User.from_orm(user)
