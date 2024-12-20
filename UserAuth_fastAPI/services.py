@@ -68,3 +68,5 @@ async def authenticate_user(email: str, password: str, db: _orm.Session):
         return False
     
     return user
+
+async def get_current_user(db: _orm.Session=_fastapi.Depends(get_db), token: str=_fastapi.Depends())
