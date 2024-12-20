@@ -84,5 +84,12 @@ async def get_current_user(
             status_code=401, detail="Invalid email or passwd"
         )
         
-    
     return _schemas.User.from_orm(user)
+
+
+async def create_post(user: _schemas.User, db: _orm.Session, post: _schemas.PostCreate):
+    post = _models.Post(**post.dict(), owner_id = user.id)
+    db.add(post)
+    db.commit()
+    db.refresh(post)
+    return _schemas.Post.from_orm(post)
