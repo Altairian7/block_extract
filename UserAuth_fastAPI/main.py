@@ -42,3 +42,9 @@ async def generate_token(
 @app.get("/api/users/me", response_model=_schemas.User)
 async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_user)):
     return user
+
+@app.post("/api/posts", response_model=_schemas.Post)
+async def create_post(post: _schemas.PostCreate, 
+                      user: _schemas.User = _fastapi.Depends(_services.get_current_user), 
+                      db: _orm.Session = _fastapi.Depends(_services.get_db),
+                      ): pass
