@@ -1,4 +1,5 @@
 import fastapi as _fastapi
+import fastapi.security as _security
 import sqlalchemy.orm as _orm
 import email_validator as _email_check
 import passlib.hash as _hash
@@ -10,6 +11,8 @@ import schemas as _schemas
 
 
 _JWT_SECRET = 'thisisnotverysafe'
+
+oauth2schema = _security.OAuth2PasswordBearer("/api/token")
 
 def _create_database():
     return _database.Base.metadata.create_all(bind=_database.engine)
