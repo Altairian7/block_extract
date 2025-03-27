@@ -14,3 +14,10 @@ print(web3.eth.get_block_transaction_count(latest_block))   # all deatil of late
 
 block_hash = '0x1e257845d7f7792397aad25bbf9e939df75798f6e469e6db86b3a6edaf4c9d34'
 print(web3.eth.get_transaction_by_block(block_hash, 2))
+
+
+
+# Latest Block Details (Full Information)
+
+latest_block_details = web3.eth.get_block(latest_block)
+print(latest_block_details)
