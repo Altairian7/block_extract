@@ -21,3 +21,7 @@ print(web3.eth.get_transaction_by_block(block_hash, 2))
 
 latest_block_details = web3.eth.get_block(latest_block)
 print(latest_block_details)
+
+
+latest_block = web3.eth.get_block(latest_block)
+print(latest_block['transactions'])  # List of transaction hashes
