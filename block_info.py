@@ -36,3 +36,9 @@ print(tx_details)
 
 gas_price = web3.eth.gas_price
 print(f"Current Gas Price: {web3.from_wei(gas_price, 'gwei')} GWEI")
+
+
+
+wallet_address = '0x742d35Cc6634C0532925a3b844Bc454e4438f44e'  # Replace with any wallet
+balance = web3.eth.get_balance(wallet_address)
+print(f"Balance: {web3.from_wei(balance, 'ether')} ETH")
