@@ -31,3 +31,8 @@ print(latest_block['transactions'])  # List of transaction hashes
 tx_hash = latest_block['transactions'][0]  # First transaction from latest block
 tx_details = web3.eth.get_transaction(tx_hash)
 print(tx_details)
+
+
+
+gas_price = web3.eth.gas_price
+print(f"Current Gas Price: {web3.from_wei(gas_price, 'gwei')} GWEI")
