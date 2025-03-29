@@ -66,3 +66,16 @@ allowance = contract.functions.allowance(owner, spender).call()
 print(f"Allowance given to {spender}: {web3.from_wei(allowance, 'ether')} USDT")
 
 
+
+
+# monitor live transactions
+
+def handle_event(event):
+    print(f"New USDT Transfer! From {event['args']['from']} to {event['args']['to']} Amount: {web3.from_wei(event['args']['value'], 'ether')}")
+
+event_filter = contract.events.Transfer.create_filter(fromBlock="latest")
+
+while True:
+    for event in event_filter.get_new_entries():
+        handle_event(event)
+
