@@ -55,3 +55,14 @@ print(f"Contract Owner: {owner_address}")
 wallet = "0xF977814e90dA44bFA03b6295A0616a897441aceC"  # Replace with any address
 is_blacklisted = contract.functions.getBlackListStatus(wallet).call()
 print(f"Is {wallet} blacklisted? {is_blacklisted}")
+
+
+
+# checking the allowance of an address 
+
+owner = "0xF977814e90dA44bFA03b6295A0616a897441aceC"  # Wallet that owns USDT
+spender = "0x1234567890abcdef1234567890abcdef12345678"  # Replace with another wallet
+allowance = contract.functions.allowance(owner, spender).call()
+print(f"Allowance given to {spender}: {web3.from_wei(allowance, 'ether')} USDT")
+
+
