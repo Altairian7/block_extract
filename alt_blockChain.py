@@ -57,3 +57,19 @@ class Blockchain:
             print(f"Previous Hash: {block.previous_hash}\n")
     
     
+
+
+# Create a blockchain instance
+my_blockchain = Blockchain()
+
+# Add some blocks
+my_blockchain.add_block("First transaction")
+my_blockchain.add_block("Second transaction")
+
+# Print the blockchain
+my_blockchain.print_chain()
+
+# Validate the blockchain
+print("Is blockchain valid?", my_blockchain.is_valid())
+
+    
