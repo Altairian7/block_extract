@@ -29,4 +29,11 @@ class Blockchain:
     def create_genesis_block(self):
         return Block(0, time.time(), "Genesis Block", "0")
         
+        
+    def add_block(self, data):
+        last_block = self.chain[-1]
+        new_index = Block(len(self.chain), time.time(), data, last_block.hash)
+        self.chain.append(new_index)
+        
+    
     
