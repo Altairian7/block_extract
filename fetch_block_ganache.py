@@ -65,3 +65,19 @@ for event in event_filter.get_all_entries():
 
 
 
+
+
+
+# track transactions of a specific address
+
+wallet_address = "0xF977814e90dA44bFA03b6295A0616a897441aceC"
+
+# Fetch the latest transactions involving this wallet
+tx_count = web3.eth.get_transaction_count(wallet_address)
+print(f"Total transactions by {wallet_address}: {tx_count}")
+
+# Fetch details of the last transaction
+latest_tx = web3.eth.get_transaction(web3.eth.get_block("latest")["transactions"][-1])
+print(latest_tx)
+
+
