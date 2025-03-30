@@ -38,3 +38,30 @@ tx_hash = Web3.eth.send_raw_transaction(signed_tx.raw_transaction)    # send a t
 
 print(Web3.to_hex(tx_hash))  # get a transaction hash
   
+
+
+
+
+
+
+
+
+#  Get Token Holders & Their Balances
+
+from web3.middleware import geth_poa_middleware
+
+web3.middleware_onion.inject(geth_poa_middleware, layer=0)  # Needed for some testnets
+
+transfer_event = contract.events.Transfer
+
+# Get recent 10 blocks and scan for USDT transfers
+latest_block = web3.eth.block_number
+start_block = latest_block - 10  # Adjust range as needed
+
+event_filter = transfer_event.create_filter(fromBlock=start_block, toBlock="latest")
+
+for event in event_filter.get_all_entries():
+    print(f"From: {event['args']['from']}, To: {event['args']['to']}, Value: {web3.from_wei(event['args']['value'], 'ether')} USDT")
+
+
+
