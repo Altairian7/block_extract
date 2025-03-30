@@ -47,4 +47,13 @@ class Blockchain:
                 return False
         return True 
     
+    def print_chain(self):
+        for block in self.chain:
+            print(f"Block {block.index} [Hash: {block.hash}]")
+            print(f"Timestamp: {block.timestamp}")
+            print(f"Block {block.index} [Hash: {block.hash}]")
+            print(f"Timestamp: {block.timestamp}")
+            print(f"Data: {block.data}")
+            print(f"Previous Hash: {block.previous_hash}\n")
+    
     
