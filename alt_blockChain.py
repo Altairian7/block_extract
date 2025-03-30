@@ -20,3 +20,10 @@ class Block:
         }, sort_keys=True)
         return hashlib.sha256(block_string.encode()).hexdigest()
     
+
+
+class Blockchain:
+    def __init__(self):
+        self.chain = [self.create_genesis_block()]
+        
+    
