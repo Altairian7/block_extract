@@ -35,5 +35,16 @@ class Blockchain:
         new_index = Block(len(self.chain), time.time(), data, last_block.hash)
         self.chain.append(new_index)
         
+        
+    def is_valid(self):
+        for i in range(1, len(self.chain)):
+            current = self.chain[i]
+            previous = self.chain[i - 1]
+            
+            if current.hash != current.calculate_hash():
+                return False
+            if current.previous_hash != previous.hash:  
+                return False
+        return True 
     
     
