@@ -88,13 +88,13 @@ class Blockchain:
             
             
     def print_chain(self):
+        """Prints the entire blockchain."""
         for block in self.chain:
             print(f"Block {block.index} [Hash: {block.hash}]")
             print(f"Timestamp: {block.timestamp}")
-            print(f"Block {block.index} [Hash: {block.hash}]")
-            print(f"Timestamp: {block.timestamp}")
-            print(f"Data: {block.data}")
-            print(f"Previous Hash: {block.previous_hash}\n")
+            print(f"Transactions: {block.transactions}")
+            print(f"Previous Hash: {block.previous_hash}")
+            print(f"Nonce: {block.nonce}\n")
     
     
 
