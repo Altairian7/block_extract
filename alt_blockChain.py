@@ -47,6 +47,13 @@ class Blockchain:
         new_index = Block(len(self.chain), time.time(), data, last_block.hash)
         self.chain.append(new_index)
 
+    def add_transaction(self, sender, receiver, amount):
+        """Adds a new transaction to the pending transactions pool."""
+        self.pending_transactions.append({"sender": sender, "receiver": receiver, "amount": amount})
+        
+        # Update balances
+        self.balances[sender] = self.balances.get(sender, 0) - amount
+        self.balances[receiver] = self.balances.get(receiver, 0) + amount
         
     def is_valid(self):
         for i in range(1, len(self.chain)):
