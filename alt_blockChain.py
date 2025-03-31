@@ -80,6 +80,13 @@ class Blockchain:
                 return False
         return True 
     
+    def tamper_with_block(self):
+        """Tamper with the blockchain to test its integrity."""
+        if len(self.chain) > 1:
+            self.chain[1].data = "Tampered Data"
+            self.chain[1].hash = self.chain[1].calculate_hash()
+            
+            
     def print_chain(self):
         for block in self.chain:
             print(f"Block {block.index} [Hash: {block.hash}]")
