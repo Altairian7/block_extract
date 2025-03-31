@@ -3,11 +3,12 @@ import json
 import time
 
 class Block:
-    def __init__(self, index, timestamp, data, previous_hash):
+    def __init__(self, index, timestamp, data, previous_hash, nonce=0):
         self.index = index
         self.timestamp = timestamp
         self.data = data
         self.previous_hash = previous_hash
+        self.noonce = nonce
         self.hash = self.calculate_hash()
     
     def calculate_hash(self):
@@ -16,9 +17,17 @@ class Block:
             "index": self.index,
             "timestamp": self.timestamp,
             "data": self.data,
-            "previous_hash": self.previous_hash
+            "previous_hash": self.previous_hash,
+            "nonce": self.noonce
         }, sort_keys=True)
         return hashlib.sha256(block_string.encode()).hexdigest()
+    
+    def mine_block(self, difficulty):
+        """Mines the block by finding a nonce that satisfies the difficulty level."""
+        target = '0' * difficulty
+        while self.hash[:difficulty] != target:
+            self.noonce += 1
+            self.hash = self.calculate_hash()
     
 
 
