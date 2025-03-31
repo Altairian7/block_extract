@@ -34,6 +34,9 @@ class Block:
 class Blockchain:
     def __init__(self):
         self.chain = [self.create_genesis_block()]
+        self.difficulty = difficulty
+        self.pending_transactions = []
+        self.balance = {}
         
     def create_genesis_block(self):
         return Block(0, time.time(), "Genesis Block", "0")
@@ -43,7 +46,7 @@ class Blockchain:
         last_block = self.chain[-1]
         new_index = Block(len(self.chain), time.time(), data, last_block.hash)
         self.chain.append(new_index)
-        
+
         
     def is_valid(self):
         for i in range(1, len(self.chain)):
