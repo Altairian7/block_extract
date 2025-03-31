@@ -55,6 +55,20 @@ class Blockchain:
         self.balances[sender] = self.balances.get(sender, 0) - amount
         self.balances[receiver] = self.balances.get(receiver, 0) + amount
         
+    def mine_pending_transactions(self):
+        """Creates a new block with pending transactions and mines it."""
+        if not self.pending_transactions:
+            print("No transactions to mine.")
+            return
+        
+        last_block = self.chain[-1]
+        new_block = Block(len(self.chain), time.time(), self.pending_transactions, last_block.hash)
+        
+        new_block.mine_block(self.difficulty)
+        self.chain.append(new_block)
+        
+        self.pending_transactions = []  # Clear pending transactions
+        
     def is_valid(self):
         for i in range(1, len(self.chain)):
             current = self.chain[i]
