@@ -8,3 +8,9 @@ if web3.is_connected():
     print("Connected to Ethereum Blockchain ✅")
 else:
     print("Failed to connect ❌")
+    
+    
+def get_eth_balance(address):
+    balance_wei = web3.eth.get_balance(address)
+    balance_eth = web3.from_wei(balance_wei, 'ether')
+    return balance_eth
