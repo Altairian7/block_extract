@@ -119,3 +119,29 @@ def interact_with_contract(contract_address, private_key):
     
     web3.eth.wait_for_transaction_receipt(tx_hash)
     return tx_hash
+
+
+
+
+
+
+def listen_to_contract_events(contract_address):
+    contract_abi = [
+        {
+            "anonymous": False,
+            "inputs": [
+                {"indexed": True, "internalType": "uint256", "name": "oldValue", "type": "uint256"},
+                {"indexed": False, "internalType": "uint256", "name": "newValue", "type": "uint256"}
+            ],
+            "name": "ValueChanged",
+            "type": "event"
+        }
+    ]
+
+    contract = web3.eth.contract(address=contract_address, abi=contract_abi)
+    
+    event_filter = contract.events.ValueChanged.create_filter(fromBlock="latest")
+
+    while True:
+        for event in event_filter.get_new_entries():
+            print(f"Value changed from {event.args.oldValue} to {event.args.newValue}")
