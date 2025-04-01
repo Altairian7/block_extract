@@ -160,3 +160,44 @@ def estimate_gas(sender, receiver, amount_eth):
         'gasPrice': web3.eth.gas_price
     }
     return web3.eth.estimate_gas(tx)
+
+
+
+
+
+
+
+
+
+# Run Ethereum Blockchain Functions
+if __name__ == "__main__":
+    user_address = "0xYourEthereumAddressHere"  # Replace with an actual Ethereum address
+    receiver_address = "0xReceiverAddressHere"
+    private_key = "YourPrivateKeyHere"  # Keep this safe! Never expose it in production
+
+    # Get ETH balance
+    balance = get_eth_balance(user_address)
+    print(f"ETH Balance: {balance} ETH")
+    
+    # Send ETH Transaction
+    tx_hash = send_eth_transaction(user_address, receiver_address, private_key, 0.01)
+    print(f"Transaction Hash: {tx_hash}")
+
+    # Deploy Smart Contract
+    contract_address = deploy_smart_contract(private_key)
+    print(f"Deployed Smart Contract Address: {contract_address}")
+
+    # Interact with Smart Contract
+    tx_hash = interact_with_contract(contract_address, private_key)
+    print(f"Contract Interaction TX: {tx_hash}")
+
+    # Listen to Events (Run this in a separate thread)
+    listen_to_contract_events(contract_address)
+    
+    # Get Gas Price
+    gas_price = get_gas_price()
+    print(f"Current Gas Price: {gas_price} Gwei")
+
+    # Estimate Gas for Transaction
+    estimated_gas = estimate_gas(user_address, receiver_address, 0.01)
+    print(f"Estimated Gas: {estimated_gas}")
