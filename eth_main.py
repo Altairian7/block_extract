@@ -78,3 +78,44 @@ def deploy_smart_contract(private_key):
 
 
 
+
+
+
+def interact_with_contract(contract_address, private_key):
+    contract_abi = [
+        {
+            "inputs": [{"internalType": "uint256", "name": "_value", "type": "uint256"}],
+            "name": "store",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function",
+        },
+        {
+            "inputs": [],
+            "name": "retrieve",
+            "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+            "stateMutability": "view",
+            "type": "function",
+        }
+    ]
+
+    account = web3.eth.account.from_key(private_key)
+    contract = web3.eth.contract(address=contract_address, abi=contract_abi)
+
+    # Call function to get stored value
+    stored_value = contract.functions.retrieve().call()
+    print(f"Stored Value: {stored_value}")
+
+    # Send transaction to update value
+    tx = contract.functions.store(42).build_transaction({
+        'from': account.address,
+        'gas': 200000,
+        'gasPrice': web3.eth.gas_price,
+        'nonce': web3.eth.get_transaction_count(account.address)
+    })
+
+    signed_tx = web3.eth.account.sign_transaction(tx, private_key)
+    tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    
+    web3.eth.wait_for_transaction_receipt(tx_hash)
+    return tx_hash
