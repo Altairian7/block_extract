@@ -150,3 +150,13 @@ def listen_to_contract_events(contract_address):
 
 def get_gas_price():
     return web3.from_wei(web3.eth.gas_price, 'gwei')
+
+
+
+def estimate_gas(sender, receiver, amount_eth):
+    tx = {
+        'to': receiver,
+        'value': web3.to_wei(amount_eth, 'ether'),
+        'gasPrice': web3.eth.gas_price
+    }
+    return web3.eth.estimate_gas(tx)
