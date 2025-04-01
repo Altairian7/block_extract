@@ -145,3 +145,8 @@ def listen_to_contract_events(contract_address):
     while True:
         for event in event_filter.get_new_entries():
             print(f"Value changed from {event.args.oldValue} to {event.args.newValue}")
+
+
+
+def get_gas_price():
+    return web3.from_wei(web3.eth.gas_price, 'gwei')
