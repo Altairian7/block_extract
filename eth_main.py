@@ -169,6 +169,44 @@ def estimate_gas(sender, receiver, amount_eth):
 
 
 
+
+
+
+
+
+
+
+
+
+
+def mint_nft(contract_address, private_key, to_address, token_uri):
+    nft_abi = [...]  # Replace with the actual ABI of your NFT contract
+    contract = web3.eth.contract(address=contract_address, abi=nft_abi)
+    account = web3.eth.account.from_key(private_key)
+
+    tx = contract.functions.mintNFT(to_address, token_uri).build_transaction({
+        'from': account.address,
+        'gas': 300000,
+        'gasPrice': web3.eth.gas_price,
+        'nonce': web3.eth.get_transaction_count(account.address)
+    })
+
+    signed_tx = web3.eth.account.sign_transaction(tx, private_key)
+    tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    return web3.to_hex(tx_hash)
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Run Ethereum Blockchain Functions
 if __name__ == "__main__":
     user_address = "0xYourEthereumAddressHere"  # Replace with an actual Ethereum address
