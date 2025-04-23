@@ -200,6 +200,21 @@ def mint_nft(contract_address, private_key, to_address, token_uri):
 
 
 
+def send_erc20(token_contract_address, private_key, to_address, amount):
+    erc20_abi = [...]  # Use the standard ERC20 ABI
+    contract = web3.eth.contract(address=token_contract_address, abi=erc20_abi)
+    account = web3.eth.account.from_key(private_key)
+
+    tx = contract.functions.transfer(to_address, amount).build_transaction({
+        'from': account.address,
+        'gas': 100000,
+        'gasPrice': web3.eth.gas_price,
+        'nonce': web3.eth.get_transaction_count(account.address)
+    })
+
+    signed_tx = web3.eth.account.sign_transaction(tx, private_key)
+    tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    return web3.to_hex(tx_hash)
 
 
 
