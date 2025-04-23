@@ -249,6 +249,17 @@ def get_token_info(token_address):
 
 
 
+def safe_estimate_gas(tx_object):
+    try:
+        estimated = web3.eth.estimate_gas(tx_object)
+        return int(estimated * 1.1)  # 10% buffer
+    except Exception as e:
+        print("Gas estimation failed:", e)
+        return 300000  # Fallback default
+
+
+
+
 # Run Ethereum Blockchain Functions
 if __name__ == "__main__":
     user_address = "0xYourEthereumAddressHere"  # Replace with an actual Ethereum address
