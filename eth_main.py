@@ -240,6 +240,14 @@ def get_pending_transactions(address):
 
 
 
+def get_token_info(token_address):
+    abi = [...]  # Standard ERC20 ABI
+    contract = web3.eth.contract(address=token_address, abi=abi)
+    symbol = contract.functions.symbol().call()
+    decimals = contract.functions.decimals().call()
+    return {'symbol': symbol, 'decimals': decimals}
+
+
 
 # Run Ethereum Blockchain Functions
 if __name__ == "__main__":
