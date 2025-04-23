@@ -260,6 +260,28 @@ def safe_estimate_gas(tx_object):
 
 
 
+def deploy_erc20_token(private_key, name, symbol, initial_supply):
+    abi = [...]       # ERC20 ABI
+    bytecode = "0x..."  # Compiled ERC20 bytecode
+
+    account = web3.eth.account.from_key(private_key)
+    contract = web3.eth.contract(abi=abi, bytecode=bytecode)
+
+    tx = contract.constructor(name, symbol, initial_supply).build_transaction({
+        'from': account.address,
+        'gas': 4000000,
+        'gasPrice': web3.eth.gas_price,
+        'nonce': web3.eth.get_transaction_count(account.address)
+    })
+
+    signed_tx = web3.eth.account.sign_transaction(tx, private_key)
+    tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    receipt = web3.eth.wait_for_transaction_receipt(tx_hash)
+    return receipt.contractAddress
+
+
+
+
 # Run Ethereum Blockchain Functions
 if __name__ == "__main__":
     user_address = "0xYourEthereumAddressHere"  # Replace with an actual Ethereum address
