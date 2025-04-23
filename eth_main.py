@@ -222,6 +222,16 @@ def send_erc20(token_contract_address, private_key, to_address, amount):
 
 
 
+def get_nft_metadata_uri(contract_address, token_id):
+    nft_abi = [...]  # ERC-721 ABI
+    contract = web3.eth.contract(address=contract_address, abi=nft_abi)
+    uri = contract.functions.tokenURI(token_id).call()
+    return uri
+
+
+
+
+
 # Run Ethereum Blockchain Functions
 if __name__ == "__main__":
     user_address = "0xYourEthereumAddressHere"  # Replace with an actual Ethereum address
