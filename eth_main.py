@@ -232,6 +232,15 @@ def get_nft_metadata_uri(contract_address, token_id):
 
 
 
+def get_pending_transactions(address):
+    pending_txs = web3.eth.filter("pending").get_new_entries()
+    user_pending = [tx for tx in pending_txs if tx['from'].lower() == address.lower()]
+    return user_pending
+
+
+
+
+
 # Run Ethereum Blockchain Functions
 if __name__ == "__main__":
     user_address = "0xYourEthereumAddressHere"  # Replace with an actual Ethereum address
